@@ -1,6 +1,6 @@
 /.angular
 /.idea
-#/.nx
+/.nx
 /data
 /deploy
 /dist
@@ -12,6 +12,5 @@
 /.gitignore
 /.prettierignore
 /.prettierrc
-/Dockerfile
 /eslint.config.mjs
 
