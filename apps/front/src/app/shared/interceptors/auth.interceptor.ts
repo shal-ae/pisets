@@ -8,7 +8,7 @@ import { ConfigService } from '../services/config.service'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  isBrowser: boolean = false
+  isBrowser = false
   config = inject( ConfigService )
 
   constructor( @Inject( PLATFORM_ID ) platformId: Object ) {

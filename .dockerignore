@@ -1,0 +1,17 @@
+/.angular
+/.idea
+/.nx
+/data
+/deploy
+/dist
+/node_modules
+/tmp
+/.git
+/.dockerignore
+/.editorconfig
+/.gitignore
+/.prettierignore
+/.prettierrc
+/Dockerfile
+/eslint.config.mjs
+

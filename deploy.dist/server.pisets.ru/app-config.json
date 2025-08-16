@@ -1,0 +1,7 @@
+{
+  "apiAddress": "https://pisets.ru",
+  "ssrApiAddress": "http://api_pisets",
+  "refreshTokenIntervalSec": 600,
+  "apiAddressErp": "",
+  "localErpFilesBackend": ""
+}

@@ -1,0 +1,149 @@
+services:
+
+  nginx_pisets:
+    hostname: nginx_pisets
+    tty: true
+    image: nginx:1.23.4-alpine
+    restart: always
+    depends_on:
+      front_pisets:
+        condition: service_healthy
+      api_pisets:
+        condition: service_healthy
+      pg_admin_pisets:
+        condition: service_started
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./../../data/certbot/conf:/etc/letsencrypt
+      - ./../../data/certbot/www:/var/www/certbot
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+  #    - ./../../dist/apps/pisets:/opt/server/dist/apps/pisets
+  #    - ./app-config.json:/opt/server/dist/apps/pisets/client/browser/app-config/app-config.json
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    networks:
+      - pisets-network
+
+  certbot:
+    container_name: certbot_pisets
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./../../data/certbot/conf:/etc/letsencrypt
+      - ./../../data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - pisets-network
+
+  front_pisets:
+    hostname: front_pisets
+    build:
+      context: ../..
+    tty: true
+    env_file:
+      - .env
+    restart: always
+    working_dir: /opt/server
+    volumes:
+      - ./app-config.json:/opt/server/dist/apps/front/browser/app-config/app-config.json
+    command: "/bin/sh -c 'nx run front:serve:production'"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://front_pisets:4200" ]
+      start_period: 1s
+      interval: 3s
+      timeout: 100ms
+      retries: 10
+    deploy:
+      replicas: 4
+      resources:
+        reservations:
+          cpus: "0.5"
+    networks:
+      - pisets-network
+
+  api_pisets:
+    hostname: api_pisets
+    build:
+      context: ../..
+    tty: true
+    restart: always
+    working_dir: /opt/server
+    volumes:
+      - "./../../${FILES_PATH}:/opt/server/${FILES_PATH}"
+      - "./../../${TEMP_FILES_PATH}:/opt/server/${TEMP_FILES_PATH}"
+    env_file:
+      - .env
+    depends_on:
+      - pg_pisets
+      - redis_pisets
+    command: "/bin/sh -c 'nx run back:serve:production'"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://api_pisets:${API_PORT}/api" ]
+      start_period: 1s
+      interval: 3s
+      timeout: 1s
+      retries: 10
+    deploy:
+      replicas: 4
+      resources:
+        reservations:
+          cpus: "0.5"
+    networks:
+      - pisets-network
+
+  redis_pisets:
+    hostname: redis_pisets
+    image: redis:latest
+    restart: always
+    volumes:
+      - ./../../data/redis/data:/root/redis
+      - ./../../data/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - "REDIS_PASSWORD=${REDIS_PASSWORD}"
+      - "REDIS_PORT=${REDIS_PORT}"
+      - REDIS_DATABASES=16
+    networks:
+      - pisets-network
+
+  pg_pisets:
+    hostname: pg_pisets
+    image: postgres:16.4
+    restart: always
+    volumes:
+      - ./../../data/db:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_DB=${DATABASE_NAME}"
+      - "POSTGRES_USER=${DATABASE_USER}"
+      - "POSTGRES_PASSWORD=${DATABASE_PASSWORD}"
+      - "POSTGRES_PORT=${DATABASE_PORT}"
+    env_file:
+      - .env
+    networks:
+      - pisets-network
+
+  pg_admin_pisets:
+    hostname: pg_admin_pisets
+    image: dpage/pgadmin4:8.11
+    restart: always
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
+      - "PGADMIN_DEFAULT_PASSWORD=${DATABASE_PASSWORD}"
+      - PGADMIN_LISTEN_PORT=80
+    env_file:
+      - .env
+    volumes:
+      #  Linux - Не забыть про права чтобы pgadmin мог записывать:
+      # sudo chown -R 5050:5050 <host_directory>
+      - ./../../data/pgadmin:/var/lib/pgadmin
+    networks:
+      - pisets-network
+
+
+networks:
+  pisets-network:
+    driver: bridge
+    external: true
+
+# docker network create -o "com.docker.network.bridge.host_binding_ipv4"="185.87.194.206" pisets-network

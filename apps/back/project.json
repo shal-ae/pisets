@@ -52,11 +52,11 @@
         "parallel": false
       }
     },
-    "serve:prod": {
+    "serve:production": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx build back --configuration development",
+          "nx build back --configuration production",
           "node dist/apps/back/main.js"
         ],
         "parallel": false
