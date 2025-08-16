@@ -1,0 +1,11 @@
+<div class="wr">
+  @for (p of doc4sStore.pictureFilesEntities(); track p.id; let i = $index) {
+    <div
+      class="item"
+      [class.selected]="doc4sStore.selectedPageId() === p.id"
+      (click)="itemClick(p, $event)"
+    >
+      {{ i + 1 }}
+    </div>
+  }
+</div>

@@ -1,0 +1,116 @@
+$handle-size: 8px;
+$handle-size-minus-half: calc(-1 * $handle-size / 2);
+$border-color: gray;
+$border-color-focused: blue;
+$handle-color: gray;
+$handle-color-focused: blue;
+
+:host {
+  position: absolute;
+}
+
+.wr {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid transparent;
+
+  &.show-controls {
+    border-color: $border-color;
+  }
+}
+
+.size {
+  position: absolute;
+  left: 5px;
+  top: -25px;
+  opacity: 0;
+  color: #182fff;
+  max-height: 25px;
+  overflow: hidden;
+
+  &:hover {
+    color: black;
+  }
+}
+
+:host {
+  :hover {
+    .size {
+      opacity: 1;
+    }
+  }
+}
+
+.handle {
+  position: absolute;
+  background: $handle-color;
+  width: $handle-size;
+  height: $handle-size;
+  border-radius: 50%;
+  opacity: 0;
+
+  &.lt {
+    left: $handle-size-minus-half;
+    top: $handle-size-minus-half;
+    cursor: nwse-resize;
+  }
+
+  &.rt {
+    right: $handle-size-minus-half;
+    top: $handle-size-minus-half;
+    cursor: nesw-resize;
+  }
+
+  &.lb {
+    left: $handle-size-minus-half;
+    bottom: $handle-size-minus-half;
+    cursor: nesw-resize;
+  }
+
+  &.rb {
+    right: $handle-size-minus-half;
+    bottom: $handle-size-minus-half;
+    cursor: nwse-resize;
+  }
+
+  &.l {
+    left: $handle-size-minus-half;
+    top: calc(50% - $handle-size / 2);
+    cursor: col-resize;
+  }
+
+  &.r {
+    right: $handle-size-minus-half;
+    top: calc(50% - $handle-size / 2);
+    cursor: col-resize;
+  }
+
+  &.t {
+    left: calc(50% - $handle-size / 2);
+    top: $handle-size-minus-half;
+    cursor: row-resize;
+  }
+
+  &.b {
+    left: calc(50% - $handle-size / 2);
+    bottom: $handle-size-minus-half;
+    cursor: row-resize;
+  }
+}
+
+.wr {
+  &.show-controls {
+    .handle {
+      opacity: 1;
+    }
+  }
+
+  &.focused {
+    border-color: $border-color-focused;
+
+    .handle {
+      background-color: $handle-color-focused;
+    }
+  }
+}

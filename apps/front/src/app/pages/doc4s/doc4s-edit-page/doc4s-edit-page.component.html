@@ -1,0 +1,98 @@
+@if (app.isBrowser) {
+  @if (doc4s.notFound()) {
+    <nz-empty></nz-empty>
+  } @else {
+
+    <div class="px-1 mx-1 w-full flex gap-2">
+      <button nz-button (click)="toList()" nzType="default">В список</button>
+
+      <button
+        nz-button
+        (click)="save()"
+        [disabled]="!doc4s.modified()"
+        nzType="primary"
+      >
+        Записать
+      </button>
+
+      <button
+        nz-button
+        (click)="save(true)"
+        [disabled]="!doc4s.modified()"
+        nzType="primary"
+      >
+        Записать и закрыть
+      </button>
+
+      <button
+        [disabled]="!auth.canDeleteDocs()"
+        nz-button
+        nzType="default"
+        nzDanger
+        nz-popconfirm
+        nzPopconfirmPlacement="bottom"
+        nzPopconfirmTitle="Удалить документ ?"
+        (nzOnConfirm)="delete()"
+      >
+        Удалить
+      </button>
+      <!--    {{ doc4s.filesAndPagesSource() }} - {{ doc4s.selectedPageId() }}-->
+      <app-status-buttons
+        class="ml-4"
+        [status]="doc4s.status()"
+        (onStatusChange)="statusChange($event)"
+        [disabledButtons]="doc4s.disabledStatuses()"
+      />
+
+      <label
+        class="ml-6 mt-1"
+        nz-checkbox
+        [ngModel]="app.showInstructions()"
+        (nzCheckedChange)="showInstructionsChange($event)"
+      >Инструкции</label
+      >
+    </div>
+
+    <div
+      class="props m-2 w-full flex gap-3 flex-wrap flex-row text-xl cursor-pointer"
+      (click)="editProps()"
+    >
+      <app-status-icon [status]="doc4s.status()" [iconSizePx]="20" />
+      <div class="p-2">
+        № {{ doc4s.num() || doc4s.id() }} от
+        {{ doc4s.createdAt() | dateToStr : 'dd.MM.yy' }}
+      </div>
+      <div class="p-2"><span>Тема: </span>{{ doc4s.subject() }}</div>
+      @if (doc4s.counterparty()) {
+        <div class="p-2"><span>Контрагент: </span>{{ doc4s.counterparty() }}</div>
+      }
+      @if (doc4s.docAsString()) {
+        <div class="p-2"><span>Док: </span>{{ doc4s.docAsString() }}</div>
+      }
+      @if (doc4s.description()) {
+        <div class="p-2"><span class="text-sm mt-1">+ Описание</span></div>
+      }
+    </div>
+
+    <hr />
+
+    <div class="flex gap-2 flex-row w-full">
+      <div class="left-panel flex flex-col gap-3 m-2">
+        <app-files-and-pages-lists [source]="'request'" />
+        <app-files-and-pages-lists [source]="'response'" />
+
+        <app-status-list />
+      </div>
+      <div>
+        @if (app.showInstructions()) {
+          <app-doc4s-edit-instruction />
+        }
+        <app-pages-editor (onDocumentChanged)="onDocumentChanged()" />
+      </div>
+    </div>
+
+  }
+
+  <app-edit-doc4s-props-dialog (onOK)="onDialogOk($event)" />
+
+}

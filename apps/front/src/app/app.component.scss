@@ -1,0 +1,29 @@
+@use '../variables';
+
+nz-affix,
+.ant-affix {
+  width: 100%;
+}
+
+.main {
+  width: 100%;
+  //width: 100%;
+
+  //  position: absolute;
+  //left: $main-menu-width;
+  //  width: $content-width;
+  //margin-left: $main-menu-width;
+
+  &.collapsed {
+    left: variables.$main-menu-width-collapsed;
+    width: variables.$content-width-collapsed;
+  }
+}
+
+.spinner {
+  z-index: 999999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}

@@ -1,0 +1,98 @@
+@if (data) {
+
+  <nz-modal
+    (nzOnCancel)="handleCancel()"
+    [(nzVisible)]="isVisible"
+    [nzTitle]="data.id ? 'Документ № ' + (data.num || data.id) : 'Новый документ'"
+    [draggable]="true"
+    [nzCentered]="true"
+  >
+    <div *nzModalContent class="flex flex-col gap-3">
+      <!--      <div class="flex flex-row gap-2">-->
+      <nz-input-group nzAddOnBefore="Тема">
+        <input
+          [readonly]="requestReadonly"
+          [(ngModel)]="data.subject"
+          nz-input
+          type="text"
+          autocomplete="off"
+        />
+      </nz-input-group>
+      <nz-input-group nzAddOnBefore="Контрагент">
+        <input
+          [readonly]="requestReadonly"
+          [(ngModel)]="data.counterparty"
+          nz-input
+          type="text"
+          autocomplete="off"
+        />
+      </nz-input-group>
+      <!--      </div>-->
+      <!--      <div class="flex flex-row gap-2">-->
+      <nz-input-group nzAddOnBefore="Тип документа">
+        <input
+          [readonly]="requestReadonly"
+          [(ngModel)]="data.type"
+          nz-input
+          type="text"
+          autocomplete="off"
+        />
+      </nz-input-group>
+      <div class="flex flex-row gap-2">
+        <nz-input-group nzAddOnBefore="№">
+          <input
+            [readonly]="requestReadonly"
+            [(ngModel)]="data.incomingDocumentNumber"
+            nz-input
+            type="text"
+            autocomplete="off"
+          />
+        </nz-input-group>
+        <nz-input-group nzAddOnBefore="от">
+          <input
+            [readonly]="requestReadonly"
+            [(ngModel)]="data.incomingDocumentDate"
+            nz-input
+            type="date"
+            autocomplete="off"
+          />
+        </nz-input-group>
+      </div>
+
+      <nz-input-group nzAddOnBefore="Описание">
+      <textarea
+        [readonly]="requestReadonly"
+        [(ngModel)]="data.description"
+        nz-input
+        placeholder=""
+        [nzAutosize]="{ minRows: 2, maxRows: 16 }"
+      ></textarea>
+      </nz-input-group>
+
+      @if (data.id) {
+        <p class="text-xl">Ответ:</p>
+        <nz-input-group nzAddOnBefore="Cогласование">
+      <textarea
+        [readonly]="responseReadonly"
+        [(ngModel)]="data.approveComments"
+        nz-input
+        placeholder=""
+        [nzAutosize]="{ minRows: 2, maxRows: 16 }"
+      ></textarea>
+        </nz-input-group>
+      }
+    </div>
+    <div *nzModalFooter>
+      <span></span>
+      <button
+        [disabled]="requestReadonly && responseReadonly"
+        (click)="handleOk()"
+        nz-button
+        nzType="primary"
+      >
+        OK
+      </button>
+      <button (click)="handleCancel()" nz-button nzType="default">Отмена</button>
+    </div>
+  </nz-modal>
+}

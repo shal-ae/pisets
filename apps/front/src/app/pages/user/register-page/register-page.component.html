@@ -1,0 +1,47 @@
+<div class="overlay">
+  <div class="form flex flex-col gap-3">
+    <app-user-dialog-caption caption="Регистрация компании" />
+
+    <nz-input-group nzAddOnBefore="email" nzSize="large">
+      <input
+        libAutoFocus
+        [(ngModel)]="data.email"
+        nz-input
+        type="text"
+        autocomplete="off"
+      />
+    </nz-input-group>
+
+    <nz-input-group nzAddOnBefore="Имя" nzSize="large">
+      <input [(ngModel)]="data.name" nz-input type="text" autocomplete="off" />
+    </nz-input-group>
+
+    <nz-input-group nzAddOnBefore="Компания" nzSize="large">
+      <input
+        [(ngModel)]="data.companyName"
+        nz-input
+        type="text"
+        autocomplete="off"
+      />
+    </nz-input-group>
+
+    <div class="error">{{ error }}</div>
+
+    <p>Для завершения регистрации перейдите по ссылке в письме.</p>
+    <div class="w-full flex flex-row gap-2 justify-around">
+      <button
+        (click)="submit()"
+        type="submit"
+        nzType="primary"
+        nz-button
+        nzSize="large"
+      >
+        Зарегистрироваться
+      </button>
+
+      <button (click)="cancel()" nzType="default" nz-button nzSize="large">
+        Отмена
+      </button>
+    </div>
+  </div>
+</div>

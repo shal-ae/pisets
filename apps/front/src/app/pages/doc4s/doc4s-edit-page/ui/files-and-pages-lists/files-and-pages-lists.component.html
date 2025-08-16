@@ -1,0 +1,153 @@
+<div
+  class="wr w-full flex flex-col gap-2 p-2 m-2 border-2 sel"
+  [class.sel]="doc4s.filesAndPagesSource() === source"
+>
+  <div
+    class="w-full flex flex-row flex-wrap ant-flex-justify-space-between gap-2"
+  >
+    <div class="text-xl cursor-pointer" (click)="changeSource()">
+      {{ source === 'request' ? 'Запрос' : 'Ответ' }}
+    </div>
+
+    <div class="flex flex-row gap-2">
+      @if (source === 'response') {
+        @if (doc4s.isResponseEmpty()) {
+          <button
+            nz-button
+            [disabled]="readonly"
+            (click)="copyPages()"
+            nzType="primary"
+          >
+            Заполнить по запросу<span nz-icon nzType="down"></span>
+          </button>
+
+        } @else {
+          <button
+            nz-button
+            nzType="default"
+            title="Добавить страницы из запроса"
+            [disabled]="readonly"
+            (click)="copyPages()"
+          >
+            <span nz-icon nzType="down"></span>
+          </button>
+
+          @if (doc4s.resultFilesResponseEntities().length > 0) {
+            <button
+              nz-button
+              nzType="primary"
+              title="Создать PDF"
+              (click)="makePdf()"
+              [disabled]="readonly"
+            >
+              <span nz-icon nzType="file-pdf"></span>
+            </button>
+          }
+        }
+      }
+      <button
+        nz-button
+        [disabled]="readonly"
+        (click)="fileUpload.click()"
+        nzType="primary"
+      >
+        Загрузить
+      </button>
+      {{ doc4s.error() }}
+    </div>
+
+    @if ((!doc4s.isResponseEmpty() && source === 'response') || (source ===
+      'request' && !doc4s.isRequestEmpty())) {
+      <button
+        nz-button
+        [nzType]="expanded ? 'default' : 'primary'"
+        title="Свернуть"
+        (click)="expanded = !expanded"
+      >
+        <span nz-icon [nzType]="expanded ? 'caret-up' : 'caret-down'"></span>
+      </button>
+    }
+  </div>
+
+  @if (expanded) {
+    @if (source === 'response') {
+      <hr />
+      @for (f of doc4s.resultFilesResponseEntities(); track f.id) {
+        <app-result-file-item [data]="f" [readonly]="readonly" />
+      }
+      @if (doc4s.resultFilesResponseEntities().length === 0 &&
+      doc4s.getPictureFilesEntities( source )().length > 0) {
+        <button
+          nz-button
+          nzType="primary"
+          title="Создать PDF"
+          (click)="makePdf()"
+          [disabled]="readonly"
+        >
+          <span nz-icon nzType="file-pdf"></span>Создать PDF
+        </button>
+      }
+    }
+
+    <hr />
+    <div>
+      @for (f of doc4s.getUploadedFilesEntities( source )(); track f.id) {
+        <app-uploaded-file-item
+          [data]="f"
+          [source]="source"
+          [readonly]="readonly"
+        />
+      }
+      @if (doc4s.getUploadedFilesEntities( source )().length === 0) {
+        @if (source
+        === 'request') {
+          <p>Файлы не загружены</p>
+        }
+      } @else {
+        <hr />
+      }
+    </div>
+
+    <div>
+      @for (f of doc4s.getPictureFilesEntities( source )(); track f.id; let i =
+        $index) {
+        @if (i < 3 || showAllPages) {
+          <app-picture-file-item [data]="f" [source]="source" [readonly]="readonly" />
+        }
+      }
+      @if (doc4s.getPictureFilesEntities( source )().length > 3) {
+        @if (showAllPages) {
+          <button
+            class="w-full"
+            nz-button
+            nzType="default"
+            (click)="showAllPages = !showAllPages"
+          >
+            <span nz-icon nzType="caret-up"></span>
+            Свернуть
+          </button>
+        } @else {
+          <button
+            class="w-full"
+            nz-button
+            nzType="primary"
+            (click)="showAllPages = !showAllPages"
+          >
+            <span nz-icon nzType="caret-down"></span>
+            Показать все ( {{ doc4s.getPictureFilesEntities( source )().length }} )
+          </button>
+        }
+      }
+      @if (doc4s.getPictureFilesEntities( source )().length === 0) {
+        <p>Страниц нет</p>
+      }
+    </div>
+  }
+</div>
+
+<input
+  #fileUpload
+  (change)="onFileSelected($event)"
+  class="hidden"
+  type="file"
+/>

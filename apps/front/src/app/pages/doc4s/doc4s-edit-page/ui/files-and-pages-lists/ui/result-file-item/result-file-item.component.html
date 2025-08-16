@@ -1,0 +1,43 @@
+@if (data) {
+  <div class="wr">
+    <a
+      [href]="data.filePath | backendFile"
+      target="_blank"
+      [title]="data.title"
+      class="max-w-full"
+    >
+      <div class="caption">{{ data | resultFileCaption }}</div>
+    </a>
+    <div class="menu">
+      <!--        <button class="menu-button" nz-button-->
+      <!--        >-->
+      <!--          <span nz-icon nzType="download"></span>-->
+      <!--        </button>-->
+      <button
+        class="menu-button"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzPlacement="bottomRight"
+        nzTrigger="click"
+      >
+        <span nz-icon nzType="ellipsis"></span>
+      </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+            [nzDisabled]="readonly"
+            nz-menu-item
+            (click)="deleteItem.open(true)"
+          >
+            Удалить
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </div>
+}
+
+<app-question-dialog #deleteItem title="Удаление" (onOK)="delete()"
+>Удалить {{ data.title }} ?
+</app-question-dialog>

@@ -1,0 +1,79 @@
+@if (data) {
+  <nz-modal
+    (nzOnCancel)="handleCancel()"
+    [(nzVisible)]="isVisible"
+    [nzTitle]="'Печать или подпись'"
+    [draggable]="true"
+    [nzCentered]="true"
+  >
+    <div *nzModalContent class="flex flex-col gap-3">
+      <nz-input-group nzAddOnBefore="Наименование">
+        <input required [(ngModel)]="data.name" nz-input type="text" />
+      </nz-input-group>
+
+      <nz-input-group nzAddOnBefore="Порядок сортировки">
+        <nz-input-number [(ngModel)]="data.sort" />
+      </nz-input-group>
+
+      <nz-input-group nzAddOnBefore="Вариант печати">
+        <input
+          readonly
+          ngModel="{{ pictureIndex + 1 }} из {{ data.images.length }}"
+          nz-input
+          type="text"
+        />
+      </nz-input-group>
+
+      <nz-input-group nzAddOnBefore="src">
+        <input readonly [(ngModel)]="picture.src" nz-input type="text" />
+      </nz-input-group>
+
+      <div class="flex flex-row gap-2">
+        <nz-input-group nzAddOnBefore="Размер, px">
+          <input
+            readonly
+            ngModel="{{ picture.width }} x {{ picture.height }}"
+            nz-input
+            type="text"
+          />
+        </nz-input-group>
+        <nz-input-group nzAddOnBefore="dpi">
+          <input
+            readonly
+            ngModel="{{ picture.dpiX }} x {{ picture.dpiY }}"
+            nz-input
+            type="text"
+          />
+        </nz-input-group>
+
+        <button
+          nz-button
+          title="Установить разрешение 300 dpi и пересчитать размеры"
+          (click)="set300dpi()"
+          nzType="dashed"
+        >
+          300 dpi
+        </button>
+      </div>
+      <div class="flex flex-row gap-2">
+        <nz-input-group nzAddOnBefore="Ширина, мм">
+          <nz-input-number
+            [(ngModel)]="picture.widthMm"
+            (ngModelChange)="changeWidth($event)"
+          />
+        </nz-input-group>
+        <nz-input-group nzAddOnBefore="Высота, мм">
+          <nz-input-number
+            [(ngModel)]="picture.heightMm"
+            (ngModelChange)="changeHeight($event)"
+          />
+        </nz-input-group>
+      </div>
+    </div>
+    <div *nzModalFooter>
+      <span></span>
+      <button (click)="handleOk()" nz-button nzType="primary">OK</button>
+      <button (click)="handleCancel()" nz-button nzType="default">Отмена</button>
+    </div>
+  </nz-modal>
+}

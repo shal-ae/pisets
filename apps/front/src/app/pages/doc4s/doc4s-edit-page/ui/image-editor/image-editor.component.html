@@ -1,0 +1,58 @@
+@if (store.pageImage()?.src) {
+  <div class="wr">
+    <nz-affix [nzOffsetTop]="54">
+      <div class="m-1 p-2 border-2 top-panel flex flex-row gap-3">
+        <app-image-editor-top-menu
+          [readonly]="readonly"
+          (onStampsChanged)="topMenuStampsChanged()"
+        />
+        <app-stamp-gallery (onImageClick)="onGalleryClick($event)" />
+      </div>
+    </nz-affix>
+    <div class="content">
+      <div
+        id="image-top"
+        class="image-wrapper"
+        [class.zoom-height]="store.pageZoom() === 'height'"
+      >
+        <div
+          class="image"
+          (onResize)="handleResize($event)"
+          (click)="onPictureClick()"
+          (keydown)="kd($event)"
+        >
+          <img
+            [src]="
+            store.pageImage()!.srcView || store.pageImage()!.src | docImagePath
+          "
+            alt=""
+          />
+
+          @if (store.documentImageRect()?.width) {
+            @for (stamp of
+              store.stampsEntities(); track stamp.id) {
+
+              <lib-resizer
+                [rect]="
+            stamp
+              | positionMmToPx : store.pageImage()! : store.documentImageRect()!
+          "
+                (onDragEnded)="stampDragged(stamp.id, $event)"
+                [showControlsOnHover]="true"
+                [showControlsAlways]="false"
+                [autoFocus]="false"
+                [focused]="store.focusedStampId() === stamp.id"
+                (click)="clickOnStamp(stamp, $event)"
+              >
+                <img [src]="stamp.imageDesc.src | stampImagePath" alt="" />
+              </lib-resizer>
+            }
+          }
+        </div>
+      </div>
+
+      <app-page-list-mini />
+    </div>
+  </div>
+
+}

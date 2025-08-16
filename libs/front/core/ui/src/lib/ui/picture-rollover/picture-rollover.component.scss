@@ -1,0 +1,40 @@
+@use './../variables';
+
+.slide {
+  border-radius: 6px;
+}
+
+.slide-select {
+  background: variables.$link-color;
+
+  &.hovered {
+    background: variables.$link-hover-color;
+  }
+
+  &.selected {
+    background: variables.$accent-color;
+  }
+}
+
+.slide-no-select {
+  background: variables.$link-color;
+
+  &.hovered {
+    background: variables.$accent-color;
+  }
+}
+
+.wrap-hide-pictogram {
+  .pictogram {
+    opacity: 0;
+  }
+
+  &:hover .pictogram {
+    opacity: 1;
+  }
+}
+
+.wrap0 {
+  border: 1px red solid;
+  box-sizing: content-box;
+}

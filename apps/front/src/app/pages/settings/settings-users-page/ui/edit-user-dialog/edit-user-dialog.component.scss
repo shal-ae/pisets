@@ -1,0 +1,12 @@
+.roles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.error {
+  min-height: 20px;
+  color: red;
+  width: 100%;
+  margin-bottom: 10px;
+}

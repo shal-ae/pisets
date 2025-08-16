@@ -1,0 +1,16 @@
+@if (status) {
+  <div class="flex flex-wrap m-2">
+  <span
+    nz-icon
+    [nzType]="StatusMeta[status].icon"
+    nzTheme="outline"
+    [style.color]="StatusMeta[status].color"
+    [title]="StatusMeta[status].name"
+    [style.font-size.px]="iconSizePx"
+  ></span>
+
+    @if (showText) {
+      <div class="h-full m-2">{{ StatusMeta[ status ].name }}</div>
+    }
+  </div>
+}

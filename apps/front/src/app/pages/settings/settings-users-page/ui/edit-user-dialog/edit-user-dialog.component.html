@@ -1,0 +1,129 @@
+@if (data) {
+
+  <nz-modal
+    (nzOnCancel)="handleCancel()"
+    [(nzVisible)]="isVisible"
+    [nzTitle]="data.id ? 'Пользователь' : 'Новый пользователь'"
+    [draggable]="true"
+    [nzCentered]="true"
+  >
+    <div *nzModalContent class="flex flex-col gap-3">
+      <nz-input-group nzAddOnBefore="Email">
+        <input
+          [disabled]="isNotAdmin"
+          [(ngModel)]="data.email"
+          nz-input
+          type="email"
+          autocomplete="off"
+          (keyup)="checkData()"
+        />
+      </nz-input-group>
+
+      <div class="error">{{ error }}</div>
+
+      <nz-input-group nzAddOnBefore="Пароль">
+        <input
+          [disabled]="isNotAdmin && isNotMe"
+          [(ngModel)]="data.password"
+          nz-input
+          type="text"
+          placeholder="Если не нужно менять, оставьте пустым"
+        />
+      </nz-input-group>
+
+      <div>
+        <nz-switch
+          [disabled]="isNotMe"
+          [ngModel]="isTwoFactorAuthenticationEnabled"
+          (ngModelChange)="twoFactorChange($event)"
+        ></nz-switch>
+        <span class="ml-2">Двухфакторная аутентификация</span>
+      </div>
+      <label nz-checkbox [disabled]="isNotMe" [(ngModel)]="data.useOtpOnly"
+      >Только одноразовый пароль</label
+      >
+
+      <nz-input-group nzAddOnBefore="Имя" class="mt-3">
+        <input
+          [disabled]="isNotAdmin"
+          [(ngModel)]="data.name"
+          nz-input
+          type="text"
+        />
+      </nz-input-group>
+
+      <label
+        nz-checkbox
+        [disabled]="isNotAdmin"
+        [(ngModel)]="data.access!.canSignDocuments"
+      >Подписывает документы</label
+      >
+      <label
+        nz-checkbox
+        [disabled]="isNotAdmin"
+        [(ngModel)]="data.access!.canListAll"
+      >Доступ ко всем документам</label
+      >
+      <label
+        nz-checkbox
+        [disabled]="isNotAdmin || isMe"
+        [(ngModel)]="data.access!.isCompanyAdmin"
+      >Администратор компании</label
+      >
+      @if (data.access!.isSystemAdmin) {
+        <label
+          nz-checkbox
+          [disabled]="true"
+          [(ngModel)]="data.access!.isSystemAdmin"
+        >Администратор системы</label
+        >
+      }
+      <hr />
+      <label
+        nz-checkbox
+        [disabled]="isNotAdmin && isNotMe"
+        [(ngModel)]="data.settings!.notifications!.emailOnNewDoc4s"
+      >Уведомлять о новых запросах на подпись</label
+      >
+      <label
+        nz-checkbox
+        [disabled]="isNotAdmin && isNotMe"
+        [(ngModel)]="data.settings!.notifications!.emailOnDocApproveResult"
+      >Уведомлять об ответах на запросы</label
+      >
+    </div>
+    <div *nzModalFooter>
+      <span></span>
+      <button
+        [disabled]="getError() !== ''"
+        (click)="handleOk()"
+        nz-button
+        nzType="primary"
+      >
+        OK
+      </button>
+      <button (click)="handleCancel()" nz-button nzType="default">Отмена</button>
+
+      @if (data.id && isAdmin && isNotMe) {
+        <button (click)="deleteUserDialog.open(true)" nz-button nzType="dashed">
+          Удалить
+        </button>
+      }
+    </div>
+    <app-question-dialog
+      #deleteUserDialog
+      title="Удаление пользователя"
+      (onOK)="deleteUser()"
+    >Удалить пользователя {{ data.name }} ?
+    </app-question-dialog>
+  </nz-modal>
+}
+
+<app-turn-on2fa-dialog
+  #turnOn2faDialogComponent
+  (onClose)="onOn2faClose($event)"
+/>
+<app-turn-off2fa-dialog
+  #turnOff2faDialogComponent
+  (onClose)="onOff2faClose($event)"
+/>

@@ -1,0 +1,39 @@
+@if (data) {
+  <div
+    class="wr"
+    [class.sel]="
+    source === doc4s.filesAndPagesSource() && data.id === doc4s.selectedPageId()
+  "
+  >
+    <div (click)="clickPicture(data.id)" class="caption max-w-full">
+      {{ data | pictureFileCaption }}
+    </div>
+    <div class="menu">
+      <button
+        class="menu-button"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzPlacement="bottomRight"
+        nzTrigger="click"
+      >
+        <span nz-icon nzType="ellipsis"></span>
+      </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+            [nzDisabled]="readonly"
+            nz-menu-item
+            (click)="deleteItem.open(true)"
+          >
+            Удалить
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </div>
+}
+
+<app-question-dialog #deleteItem title="Удаление" (onOK)="delete()"
+>Удалить #{{ data.id }} ?
+</app-question-dialog>

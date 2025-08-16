@@ -1,0 +1,55 @@
+@if (isVisible) {
+  <nz-modal
+    (nzOnCancel)="handleCancel()"
+    [(nzVisible)]="isVisible"
+    nzTitle="Включение двухфакторной аутентификации"
+    [draggable]="true"
+    [nzCentered]="true"
+  >
+    <div *nzModalContent class="flex flex-col gap-3">
+      @if (generatedData) {
+        <div class="flex flex-col gap-2">
+          <div>
+            <b
+            >1. Сосканируйте этот код в приложении Google Authenticator,
+              Яндекс.Ключ, FreeOTP или аналогичном</b
+            >
+          </div>
+          <img [src]="generatedData.qrCodeDataUrl" alt="QR code" />
+          <div>
+            или введите код вручную - <b>{{ generatedData.secret }}</b>
+          </div>
+          <div></div>
+
+          <div>
+            <b>2. Приложение сгенерирует пароль. Введите его здесь и нажмите OK.</b>
+          </div>
+          <nz-input-group nzAddOnBefore="Пароль">
+            <input
+              #code
+              [(ngModel)]="password"
+              nz-input
+              type="text"
+              (keyup)="passwordKeyup($event)"
+              placeholder="Пароль из приложения"
+              (keyup.enter)="handleOk()"
+            />
+          </nz-input-group>
+
+          <div class="error">{{ turnOnError }}</div>
+        </div>
+      } @else {
+        <div class="flex">
+          <p>Ошибка при генерации кода</p>
+        </div>
+      }
+    </div>
+
+    <div *nzModalFooter>
+      <span></span>
+      <button (click)="handleOk()" nz-button nzType="primary">OK</button>
+      <button (click)="handleCancel()" nz-button nzType="default">Отмена</button>
+    </div>
+  </nz-modal>
+
+}

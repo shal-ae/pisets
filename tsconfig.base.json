@@ -14,7 +14,21 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@app/back": ["libs/back-erp"],
+      "@app/back/*": ["libs/back-erp/*"],
+      "@rka/back-cat": ["libs/back/cat/src/index.ts"],
+      "@rka/back-utils": ["libs/back/core/utils/src/index.ts"],
+      "@rka/core-utils": ["libs/core/core-utils/src/index.ts"],
+      "@rka/db": ["libs/back/core/db/src/index.ts"],
+      "@rka/doc4s": ["libs/core/doc4s/src/index.ts"],
+      "@rka/files": ["libs/back/core/files/src/index.ts"],
+      "@rka/job-back": ["libs/back/core/job/src/index.ts"],
+      "@rka/s3": ["libs/back/core/s3/src/index.ts"],
+      "@rka/store": ["libs/front/core/store/src/index.ts"],
+      "@rka/ui": ["libs/front/core/ui/src/index.ts"],
+      "crypto": ["node_modules/crypto-js"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

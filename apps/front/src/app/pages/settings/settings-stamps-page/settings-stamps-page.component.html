@@ -1,0 +1,29 @@
+@if (app.isBrowser) {
+
+  <div class="flex gap-2 m-2 flex-wrap">
+    <button
+      nz-button
+      (click)="fileUpload.click()"
+      [disabled]="readonly"
+      nzType="primary"
+    >
+      Добавить
+    </button>
+
+    <lib-pager-panel [store]="stamp" [loadUrl]="cfg.config.apiAddress + BackendRoutes.stampsList" />
+  </div>
+
+  <div class="flex flex-row flex-wrap gap-2 m-2">
+    @for (st of stamp.entities(); track st.id) {
+      <app-stamp-item [stamp]="st" [readonly]="readonly" />
+    }
+  </div>
+
+  <input
+    #fileUpload
+    (change)="onFileSelected($event)"
+    class="hidden"
+    type="file"
+  />
+
+}

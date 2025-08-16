@@ -1,0 +1,71 @@
+<div class="overlay">
+  <div class="form flex flex-col gap-3">
+    <app-user-dialog-caption caption="Вход в систему" />
+
+    <nz-input-group nzAddOnBefore="Пользователь" nzSize="large">
+      <input
+        #login
+        [disabled]="enter2FaCode"
+        [(ngModel)]="username"
+        nz-input
+        type="text"
+        autocomplete="off"
+        (keyup.enter)="submit()"
+      />
+    </nz-input-group>
+
+    <nz-input-group nzAddOnBefore="Пароль" nzSize="large">
+      <input #psw
+        [disabled]="enter2FaCode"
+        [(ngModel)]="password"
+        nz-input
+        type="password"
+        [readonly]="auth.state.connecting()"
+        (keyup.enter)="submit()"
+      />
+    </nz-input-group>
+
+    @if (enter2FaCode) {
+      <nz-input-group nzAddOnBefore="Код" nzSize="large">
+        <input
+          nz-input
+          #code
+          [(ngModel)]="code2fa"
+          [readonly]="auth.state.connecting()"
+          (keyup.enter)="submit()"
+        />
+      </nz-input-group>
+    }
+
+    <div class="error">{{ auth.state.error() }}</div>
+
+    <div class="w-full flex flex-row gap-2 justify-around">
+      <button
+        (click)="submit()"
+        [disabled]="auth.state.connecting()"
+        type="submit"
+        nzType="primary"
+        nz-button
+        nzSize="large"
+      >
+        Войти
+      </button>
+
+      <button (click)="cancel()" nzType="default" nz-button nzSize="large">
+        Отмена
+      </button>
+
+      <button
+        [routerLink]="[FrontendRoutes.user.forgotPassword]"
+        [queryParams]="{ returnUrl: app.locationPathAndSearch }"
+        [disabled]="auth.state.connecting()"
+        class="mt-2"
+        nzType="dashed"
+        nz-button
+        nzSize="small"
+      >
+        Забыли пароль
+      </button>
+    </div>
+  </div>
+</div>

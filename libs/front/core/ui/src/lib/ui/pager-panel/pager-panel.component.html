@@ -1,0 +1,66 @@
+@if (store) {
+
+  <div class="flex gap-4 flex-wrap">
+    @if (store.config().viewItems?.length) {
+      <div class="flex gap-1">
+        <div class="text my-auto">Вид:</div>
+        <nz-radio-group
+          [ngModel]="store.view()"
+          nzSize="default"
+          nzButtonStyle="solid"
+          (ngModelChange)="changeView($event)"
+        >
+          @for (v of store.config().viewItems; track v.id) {
+            <label nz-radio-button nzValue="{{ v.id }}">{{ v.caption }}</label>
+          }
+        </nz-radio-group>
+      </div>
+    }
+    @if (store.config().itemsOnPageItems?.length) {
+      <div class="flex gap-1">
+        <div class="text my-auto">На странице:</div>
+        <nz-radio-group
+          [ngModel]="store.itemsOnPage()"
+          (ngModelChange)="changeItemsOnPage($event)"
+          nzSize="default"
+          nzButtonStyle="solid"
+        >
+          @for (i of store.config().itemsOnPageItems; track i) {
+            <label nz-radio-button [nzValue]="i">{{ i || 'Все' }}</label>
+          }
+        </nz-radio-group>
+      </div>
+    }
+
+    <div class="flex gap-2">
+      <div class="my-auto">Всего: {{ store.total() }}</div>
+      <nz-pagination
+        [nzPageIndex]="store.page()"
+        [nzTotal]="store.total()"
+        [nzPageSize]="store.itemsOnPage() || 1000000"
+        (nzPageIndexChange)="changePage($event)"
+        [nzShowQuickJumper]="false"
+      ></nz-pagination>
+    </div>
+
+    @if ((store.config().orderItems?.length || 0) > 1) {
+      <div class="flex gap-1">
+        <div class="text my-auto">Порядок:</div>
+
+        <nz-radio-group
+          [ngModel]="store.simpleSort()"
+          nzSize="default"
+          nzButtonStyle="solid"
+          (ngModelChange)="changeOrder($event)"
+        >
+          @if (showNoSortOption) {
+            <label nz-radio-button [nzValue]="''">Нет</label>
+          }
+          @for (ord of store.config().orderItems; track ord.id) {
+            <label nz-radio-button [nzValue]="ord.id">{{ ord.caption }}</label>
+          }
+        </nz-radio-group>
+      </div>
+    }
+  </div>
+}

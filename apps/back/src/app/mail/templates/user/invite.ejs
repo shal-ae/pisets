@@ -1,0 +1,15 @@
+<main>
+    <div>Доброго времени суток, <%= username; %> !</div>
+    <div><br></div>
+    <div><%= invitor; %> приглашает Вас присоединиться к компании <%= companyName; %>.</div>
+    <div><br></div>
+    <div><br></div>
+    <div>Чтобы присоединиться, пожалуйста <b>пройдите по <a href="<%= urlConfirmAddress; %>">ссылке</a></b>
+    </div>
+    <div><br></div>
+    <div>Если вы получили это письмо по ошибке, просто проигнорируйте его.</div>
+    <div><br></div>
+    <div style="font-size: 12px; color: #7b7b7b;">Запрос поступил с IP адреса: <%= ipAddress; %></div>
+
+    <%- include('../mail-bottom-user') %>
+</main>

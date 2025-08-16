@@ -1,0 +1,36 @@
+@if (isVisible) {
+  <nz-modal
+    (nzOnCancel)="handleCancel()"
+    [(nzVisible)]="isVisible"
+    nzTitle="Отключение двухфакторной аутентификации"
+    [draggable]="true"
+    [nzCentered]="true"
+  >
+    <div *nzModalContent class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
+        <div>Для отключения введите пароль</div>
+
+        <nz-input-group nzAddOnBefore="Пароль">
+          <input
+            #code
+            [(ngModel)]="password"
+            nz-input
+            type="text"
+            (keyup)="passwordKeyup($event)"
+            placeholder="Пароль из приложения"
+            (keyup.enter)="handleOk()"
+          />
+        </nz-input-group>
+
+        <div class="error">{{ error }}</div>
+      </div>
+    </div>
+
+    <div *nzModalFooter>
+      <span></span>
+      <button (click)="handleOk()" nz-button nzType="primary">OK</button>
+      <button (click)="handleCancel()" nz-button nzType="default">Отмена</button>
+    </div>
+  </nz-modal>
+
+}

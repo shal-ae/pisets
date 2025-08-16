@@ -1,0 +1,50 @@
+<div class="main-menu">
+  <div
+    [class.mx-6]="app.isMainMenuCollapsed()"
+    [routerLink]="FrontendRoutes.home"
+    class="m-4 cursor-pointer flex"
+  >
+    <img alt="Logo" height="28" src="/img/logo.svg" width="31" />
+    @if (!(app.isMainMenuCollapsed())) {
+      <span class="mx-4 text-xl">Аэроплан</span>
+    }
+  </div>
+
+  <ul
+    [nzInlineCollapsed]="app.isMainMenuCollapsed()"
+    class="h-[calc(100vh-110px)] overflow-y-auto overflow-x-hidden"
+    nz-menu
+    nzMode="inline"
+  >
+    <li
+      [nzOpen]="openMap()['sign']"
+      (nzOpenChange)="openHandler('sign', $event)"
+      nz-submenu
+      nzIcon="form"
+      nzTitle="На подпись"
+    >
+      <ul>
+        <li [routerLink]="FrontendRoutes.doc4sList" nz-menu-item>Документы</li>
+      </ul>
+    </li>
+
+    <li
+      [nzOpen]="openMap()['settings']"
+      (nzOpenChange)="openHandler('settings', $event)"
+      nz-submenu
+      nzIcon="setting"
+      nzTitle="Настройки"
+    >
+      <ul>
+        <li [routerLink]="FrontendRoutes.settingsStamps" nz-menu-item>
+          Печати и подписи
+        </li>
+      </ul>
+      <ul>
+        <li [routerLink]="FrontendRoutes.settingsUsers" nz-menu-item>
+          Пользователи
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

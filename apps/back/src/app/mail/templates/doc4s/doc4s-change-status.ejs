@@ -1,0 +1,14 @@
+<main>
+    <div><%= userName %></div>
+    <div><br></div>
+    <div>Изменен статус <a href="<%= urlRequestAddress %>">запроса № <%= requestNum %></a> на <%= statusName %> .</div>
+    <div><br></div>
+    <div><br></div>
+    <div>Тема запроса: <%= subject %></div>
+    <div><br></div>
+    <div>Контрагент: <%= counterparty %></div>
+    <div><br></div>
+    <div>Документ: <%= documentStr %></div>
+    <div><br></div>
+    <%- include('../mail-bottom-user') %>
+</main>

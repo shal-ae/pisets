@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.menu-button {
+  display: none;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+:host:hover {
+  .menu-button {
+    display: block;
+  }
+}

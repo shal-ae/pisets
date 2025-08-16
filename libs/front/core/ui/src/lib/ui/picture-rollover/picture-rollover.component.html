@@ -1,0 +1,42 @@
+<div
+  class="wrap flex flex-col gap-1"
+  [style.width.px]="pictureWidthPx"
+  [class.wrap-hide-pictogram]="hidePictogramWhenMouseOut"
+>
+  <div
+    #picture
+    class="w-full flex overflow-hidden"
+    [class.cursor-pointer]="cursorPointer"
+    [style.min-height.px]="pictureHeightPx"
+    [style.max-height.px]="pictureHeightPx"
+    (mousemove)="imageMouseMove($event)"
+    (mouseenter)="imageMouseMove($event)"
+    (mouseleave)="imageMouseLeave($event)"
+    (click)="mouseClick($event)"
+  >
+    @if (pictures.length && shown !== null) {
+      <img
+        class="m-auto overflow-hidden"
+        [style.max-width.px]="pictureWidthPx"
+        [style.max-height.px]="pictureHeightPx"
+        src="{{ pictures[shown!].path }}"
+      />
+    }
+  </div>
+
+  @if (pictures.length > 1) {
+    <div class="pictogram flex w-full justify-between">
+      @for (p of pictures; let i = $index; track p.path) {
+        <div
+          [style.width.px]="slideWidth"
+          [style.height.px]="pictogramHeightPx"
+          class="slide"
+          [class.slide-no-select]="!selectPictureOnClick"
+          [class.slide-select]="selectPictureOnClick"
+          [class.selected]="i === selected"
+          [class.hovered]="i === hovered"
+        ></div>
+      }
+    </div>
+  }
+</div>

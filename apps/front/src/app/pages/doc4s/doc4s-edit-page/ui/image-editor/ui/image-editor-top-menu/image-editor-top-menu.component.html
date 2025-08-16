@@ -1,0 +1,26 @@
+<div class="flex flex-row gap-2">
+  <nz-segmented
+    [nzOptions]="options"
+    [ngModel]="store.pageZoom()"
+    (ngModelChange)="zoomChange($event)"
+  />
+
+  <button
+    nz-button
+    nz-dropdown
+    [nzDropdownMenu]="stampMenu"
+    nzTrigger="click"
+    [nzDisabled]="store.focusedStampId() === null || readonly"
+  >
+    Штамп
+    <span nz-icon nzType="down"></span>
+  </button>
+  <nz-dropdown-menu #stampMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="delete()">Удалить</li>
+      <li nz-menu-item (click)="deleteAll()">Удалить все</li>
+      <li nz-menu-item (click)="clone()">Дублировать</li>
+      <li nz-menu-item (click)="restoreSize()">Исходный размер</li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

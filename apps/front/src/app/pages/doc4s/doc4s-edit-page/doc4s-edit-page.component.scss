@@ -1,0 +1,19 @@
+@use '../../../../variables';
+
+:host {
+  width: 100%;
+}
+
+.props {
+  span {
+    color: #bbbbbb;
+  }
+
+  &:hover {
+    color: variables.$link-hover-color;
+
+    span {
+      color: variables.$link-hover-color;
+    }
+  }
+}

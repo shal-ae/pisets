@@ -1,0 +1,8 @@
+export const ERROR_USER_ALREADY_REGISTERED = 1
+export const ERROR_USER_INVALID_EMAIL = 2
+export const ERROR_USER_INVALID_PASSWORD = 3
+export const ERROR_USER_NOT_REGISTERED = 4
+
+export const ERROR_TOKEN_EMPTY = 5
+export const ERROR_TOKEN_EXPIRED = 6
+export const ERROR_TOKEN_NOT_FOUND = 7

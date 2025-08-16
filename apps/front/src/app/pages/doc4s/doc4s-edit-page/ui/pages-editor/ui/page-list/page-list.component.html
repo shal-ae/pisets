@@ -1,0 +1,24 @@
+<div
+  class="wr flex flex-col p-2 pr-4"
+  [style.width.px]="widthPx"
+  [style.max-width.px]="widthPx"
+>
+  @for (p of doc4sStore.pictureFilesEntities(); track p.id; let i = $index) {
+    <div
+      class="item w-full m-1 gap-2"
+      [class.selected]="doc4sStore.selectedPageId() === p.id"
+      (click)="itemClick(p, $event)"
+    >
+      <div class="img p-1">
+        <img
+          [src]="
+          p.pageImage!.srcThumbnail || p.pageImage!.srcView || p.pageImage!.src
+            | docImagePath
+        "
+          alt=""
+        />
+      </div>
+      <div class="num">{{ i + 1 }}</div>
+    </div>
+  }
+</div>

@@ -1,0 +1,18 @@
+<!--<nz-button-group>-->
+  @for (s of DocumentStatuses; track s) {
+
+    <label
+      nz-checkbox
+      [(ngModel)]="selected[s]"
+      (nzCheckedChange)="changeChecked($event, s)"
+    >
+    <span
+      nz-icon
+      [nzType]="StatusMeta[s].icon"
+      [style.color]="StatusMeta[s].color"
+      [title]="StatusMeta[s].name"
+    ></span>
+    </label>
+
+  }
+<!--</nz-button-group>-->

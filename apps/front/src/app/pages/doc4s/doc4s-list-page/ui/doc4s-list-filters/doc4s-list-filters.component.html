@@ -1,0 +1,37 @@
+<div class="flex flex-wrap flex-row gap-5">
+  <!--  <nz-input-group nzAddOnBefore="Поиск">-->
+  <div>
+    <span class="text-xl mr-2">Поиск</span>
+    <input
+      style="width: 200px"
+      [(ngModel)]="searchStr"
+      (keyup)="changeSearch()"
+      nz-input
+      type="text"
+      autocomplete="off"
+    />
+    <!--  </nz-input-group>-->
+  </div>
+  <div>
+    <span class="text-xl mr-2">Автор</span>
+    <label
+      [disabled]="!auth.canListAll()"
+      nz-checkbox
+      [(ngModel)]="showAll"
+      (nzCheckedChange)="changeCheckedAll($event)"
+    >Все</label
+    >
+  </div>
+
+  <div>
+    <span
+      class="text-xl mr-2 cursor-pointer status-label"
+      (click)="allStatuses()"
+    >Статусы</span
+    >
+    <app-select-statuses
+      [selected]="selectedStatuses"
+      (changeSelection)="changeStatusSelection($event)"
+    />
+  </div>
+</div>

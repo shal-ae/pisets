@@ -1,0 +1,54 @@
+@if (data) {
+  <div class="wr">
+    <a
+      [href]="data.filePath | backendFile"
+      target="_blank"
+      [title]="data | uploadedFileCaption"
+      class="max-w-full"
+    >
+      <div class="caption">{{ data | uploadedFileCaption }}</div>
+    </a>
+    <div class="menu">
+      <!--      <button class="menu-button" nz-button-->
+      <!--      >-->
+      <!--        <span nz-icon nzType="download"></span>-->
+      <!--      </button>-->
+      <button
+        class="menu-button"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzPlacement="bottomRight"
+        nzTrigger="click"
+      >
+        <span nz-icon nzType="ellipsis"></span>
+      </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li
+            [nzDisabled]="readonly"
+            nz-menu-item
+            (click)="deleteItem.open(true)"
+          >
+            Удалить
+          </li>
+          <li
+            nz-menu-item
+            [nzDisabled]="!data.pageCount || readonly"
+            (click)="deleteItemWithPages.open(true)"
+          >
+            Удалить со страницами
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+  </div>
+}
+
+<app-question-dialog #deleteItem title="Удаление" (onOK)="delete(false)"
+>Удалить {{ data.originalName }} ?
+</app-question-dialog>
+
+<app-question-dialog #deleteItemWithPages title="Удаление" (onOK)="delete(true)"
+>Удалить {{ data.originalName }} со страницами ?
+</app-question-dialog>

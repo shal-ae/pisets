@@ -1,0 +1,23 @@
+{
+  "name": "doc4s",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/core/doc4s/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/core/doc4s",
+        "main": "libs/core/doc4s/src/index.ts",
+        "tsConfig": "libs/core/doc4s/tsconfig.lib.json",
+        "assets": [
+          "libs/core/doc4s/*.md"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

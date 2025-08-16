@@ -1,0 +1,23 @@
+@use '../../../../../../../../variables';
+
+.wr {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px;
+}
+
+.item {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  text-align: center;
+
+  &.selected {
+    border-color: variables.$accent-color;
+  }
+}

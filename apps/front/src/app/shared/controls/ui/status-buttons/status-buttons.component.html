@@ -1,0 +1,17 @@
+<!--<nz-button-group>-->
+  @for (s of DocumentStatuses; track s) {
+    <button
+      nz-button
+      [nzType]="s === status ? 'primary' : 'default'"
+      (click)="click(s)"
+      [disabled]="disabledButtons[s] === true"
+    >
+    <span
+      nz-icon
+      [nzType]="StatusMeta[s].icon"
+      [style.color]="s === status ? 'white' : StatusMeta[s].color"
+    ></span>
+      {{ StatusMeta[ s ].name }}
+    </button>
+  }
+<!--</nz-button-group>-->

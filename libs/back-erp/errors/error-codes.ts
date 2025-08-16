@@ -1,0 +1,9 @@
+export const ERROR_PRODUCT_NOT_FOUND = 3
+
+export const ERROR_FILTER_TYPE_ALREADY_EXISTS = 4
+
+export const ERROR_CATALOG_ALREADY_EXISTS = 5
+
+export const ERROR_CATEGORY_NOT_FOUND = 6
+
+

@@ -19,9 +19,18 @@
           {
             "glob": "**/*",
             "input": "apps/front/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@ant-design/icons-angular/src/inline-svg",
+            "output": "assets"
           }
         ],
-        "styles": ["apps/front/src/styles.scss"]
+        "styles": [
+          "apps/front/src/theme.less",
+          "apps/front/src/styles.scss",
+          "apps/front/src/variables.scss"
+        ]
       },
       "configurations": {
         "production": {

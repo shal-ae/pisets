@@ -1,0 +1,16 @@
+<nz-modal
+  (nzOnCancel)="handleCancel()"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="title"
+  [draggable]="true"
+  [nzCentered]="true"
+>
+  <div *nzModalContent class="flex flex-col gap-3">
+    <ng-content></ng-content>
+  </div>
+  <div *nzModalFooter>
+    <span></span>
+    <button (click)="handleOk()" nz-button nzType="primary">OK</button>
+    <button (click)="handleCancel()" nz-button nzType="default">Отмена</button>
+  </div>
+</nz-modal>

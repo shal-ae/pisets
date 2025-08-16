@@ -1,0 +1,46 @@
+<div
+  #top
+  class="top-panel flex h-[56px] justify-between pt-2 pb-4 pr-8 bg-blue-100"
+>
+  <div [routerLink]="FrontendRoutes.home" class="m-1 cursor-pointer flex">
+    <span
+      nz-icon
+      [nzType]="StatusMeta['pending'].icon"
+      nzTheme="outline"
+      [style.color]="StatusMeta['pending'].color"
+      [title]="StatusMeta['pending'].name"
+      [style.font-size.px]="32"
+    ></span>
+  </div>
+
+  <div class="w-full h-full text-2xl ml-3 text-ellipsis overflow-hidden">
+    {{ app.title() }}
+  </div>
+
+  <div class="flex">
+<!--    <nz-button-group class="ml-2">-->
+      @if (auth.state().user) {
+        <button [routerLink]="FrontendRoutes.doc4sList" nz-button>
+          Документы
+        </button>
+        <button [routerLink]="FrontendRoutes.settingsStamps" nz-button>
+          Подписи
+        </button>
+        <button [routerLink]="FrontendRoutes.settingsUsers" nz-button>
+          Пользователи
+        </button>
+        <button (click)="clickName()" nz-button>
+          {{ auth.state().user?.name }}
+        </button>
+        <button (click)="logout()" nz-button>Выход</button>
+      } @else {
+        <button [routerLink]="FrontendRoutes.user.login" nz-button>Вход</button>
+        <button [routerLink]="FrontendRoutes.user.register" nz-button>
+          Регистрация
+        </button>
+      }
+<!--    </nz-button-group>-->
+  </div>
+</div>
+
+<app-edit-user-dialog #editUserDialog (onOK)="onUserEdited($event)" />

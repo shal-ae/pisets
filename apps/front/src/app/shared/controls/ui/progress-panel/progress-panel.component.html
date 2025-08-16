@@ -1,0 +1,18 @@
+@if (jobs.jobsNotFinished().length) {
+  <div class="w-full flex flex-row" [style.height.px]="8">
+    @for (job of jobs.jobsNotFinished(); track job.id) {
+      <app-progress-panel-job-item [job]="job" />
+    }
+  </div>
+} @else {
+  <!--  <div class="w-full bg-white"-->
+    <!--  ></div>-->
+  <nz-progress [nzPercent]="0" [nzShowInfo]="false" />
+
+  <!--  <div class="w-full flex" [style.height.px]="8">-->
+    <!--    <app-progress-panel-job-item [job]="testJob"-->
+    <!--    />-->
+    <!--    <app-progress-panel-job-item [job]="testJob"-->
+    <!--    />-->
+    <!--  </div>-->
+}

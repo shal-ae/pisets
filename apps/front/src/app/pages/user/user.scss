@@ -1,0 +1,29 @@
+[nz-input-group-slot] {
+  width: 120px;
+}
+
+.form {
+  padding: 20px;
+  background-color: white;
+  border-radius: 7px;
+}
+
+.overlay {
+  width: 100%;
+  height: calc(100vh - 100px);
+  background: rgba(51, 51, 51, 0.7);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  color: red;
+  min-height: 30px;
+  margin: 5px;
+}
+
+.caption {
+  margin: 10px 0;
+}

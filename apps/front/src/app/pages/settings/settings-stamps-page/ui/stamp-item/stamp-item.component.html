@@ -1,0 +1,100 @@
+@if (stamp) {
+  <div class="p-2 m-2 border-2 relative">
+    <lib-picture-rollover
+      class="p2"
+      [title]="stamp.name"
+      [pictures]="stamp.images | imagesToRolloverPicture : STAMPS_FOLDER"
+      [pictureWidthPx]="160"
+      [pictureHeightPx]="160"
+      [pictogramHeightPx]="4"
+      [hidePictogramWhenMouseOut]="true"
+      (imageClick)="imageClick(stamp, $event)"
+      (onShow)="showStamp($event)"
+    />
+
+    <div class="props m-2 w-full">
+      <div
+        class="w-full max-w-full prop-item text-center mb-2 text-xl text-ellipsis overflow-hidden"
+      >
+        {{ stamp.name }}
+      </div>
+      @if (shownImage()) {
+        @if (stamp.images.length > 1) {
+          <div class="prop-item w-full">
+            {{ shownImageIndex() === null ? '--' : shownImageIndex()! + 1 }} /
+            {{ stamp.images.length }}
+          </div>
+        }
+        <div class="prop-item w-full">
+          {{ shownImage()!.width }} x {{ shownImage()!.height }} px
+        </div>
+        <div class="prop-item w-full">
+          {{ shownImage()!.widthMm }} x {{ shownImage()!.heightMm }} мм
+        </div>
+        <div class="prop-item w-full">
+          {{ shownImage()!.dpiX }} x {{ shownImage()!.dpiY }} dpi
+        </div>
+      }
+    </div>
+
+    @if (!readonly) {
+      <button
+        class="menu-button"
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzPlacement="bottomRight"
+        nzTrigger="click"
+        [disabled]="readonly"
+      >
+        <span nz-icon nzType="ellipsis"></span>
+      </button>
+    }
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="deleteStampDialog.open(true)">Удалить</li>
+        <!--        <li nz-menu-item (click)="editStampDialog.open(stamp)">Свойства общие</li>-->
+        <li
+          nz-menu-item
+          (click)="editStampPictureDialog.open(stamp, shownImageIndex()!)"
+        >
+          Редактировать
+        </li>
+        <li nz-menu-item (click)="fileUpload.click()">Добавить вариант</li>
+        <li
+          nz-menu-item
+          (click)="deletePictureDialog.open(true)"
+          [nzDisabled]="stamp.images.length < 2"
+        >
+          Удалить вариант
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+}
+
+<app-question-dialog
+  #deleteStampDialog
+  title="Удаление печати или подписи"
+  (onOK)="deleteStamp()"
+>Удалить {{ stamp.name }} ?
+</app-question-dialog>
+
+<app-question-dialog
+  #deletePictureDialog
+  title="Удаление варианта печати или подписи"
+  (onOK)="deletePicture()"
+>Удалить вариант № {{ shownImageIndex()! + 1 }} ?
+</app-question-dialog>
+
+<input
+  #fileUpload
+  (change)="onFileSelected($event)"
+  class="hidden"
+  type="file"
+/>
+
+<app-edit-stamp-picture-dialog
+  #editStampPictureDialog
+  (onOK)="onStampEdited($event)"
+></app-edit-stamp-picture-dialog>

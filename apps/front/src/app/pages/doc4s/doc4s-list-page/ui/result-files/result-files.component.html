@@ -1,0 +1,11 @@
+@for (f of data.resultFilesResponse; track f.id) {
+  <a [href]="f.filePath | backendFile" target="_blank" [title]="f.title" download>
+  <span
+    nz-icon
+    nzType="file-pdf"
+    nzTheme="outline"
+    [title]="f | resultFileCaption"
+    [style.font-size.px]="20"
+  ></span
+  ></a>
+}

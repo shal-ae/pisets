@@ -1,0 +1,9 @@
+{
+  "name": "job-back",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/back/core/job/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project job-back --web",
+  "targets": {}
+}

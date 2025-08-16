@@ -1,0 +1,11 @@
+<div class="wr w-full flex flex-col gap-2 p-2 m-2 border-2 sel">
+  @for (s of doc4s.statusesEntities().reverse(); track s.id) {
+    <div class="flex flex-wrap justify-between gap-2">
+      <div>{{ s.setAt | dateToStr }}</div>
+      <div>{{ StatusMeta[ s.status ].name }}</div>
+      <div>
+        {{ s.setByUserId ? auth.users.entityMap()[ s.setByUserId ].name : '?' }}
+      </div>
+    </div>
+  }
+</div>

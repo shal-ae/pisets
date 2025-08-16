@@ -1,0 +1,56 @@
+@if (app.isBrowser) {
+  <div class="flex gap-2 m-2">
+    @if (auth.state().user?.access?.isSystemAdmin) {
+      <button
+        nz-button
+        (click)="editUserDialog.open(undefined)"
+        [disabled]="!auth.canEditUsers()"
+        nzType="primary"
+      >
+        Добавить
+      </button>
+    }
+    <button
+      nz-button
+      [routerLink]="[FrontendRoutes.user.invite]"
+      [queryParams]="{ returnUrl: app.locationPathAndSearch }"
+      (click)="editUserDialog.open(undefined)"
+      [disabled]="!auth.canEditUsers()"
+      nzType="primary"
+    >
+      Пригласить
+    </button>
+    <lib-pager-panel [store]="users" [loadUrl]="cfg.config.apiAddress + BackendRoutes.usersList" />
+  </div>
+
+  <nz-table
+    #usersTable
+    class="w-full"
+    [nzFrontPagination]="false"
+    [nzData]="users.entities()"
+    nzBordered
+  >
+    <thead>
+    <tr>
+      <th>Код</th>
+      <th>Имя</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of usersTable.data; track data.id) {
+
+        <tr class="cursor-pointer" (click)="editUserDialog.open(data)">
+          <td>{{ data.createdAt! | dateToStr }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.email }}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  <app-edit-user-dialog
+    #editUserDialog
+    (onOK)="onUserEdited($event)"
+  ></app-edit-user-dialog>
+}

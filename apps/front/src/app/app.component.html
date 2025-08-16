@@ -1,0 +1,18 @@
+<div class="main mr-2 print:m-0 pl-4">
+  <nz-affix>
+    <app-top-panel class="z-50 backdrop-blur-lg print:hidden" />
+    <div [style.min-height.px]="1" [style.background-color]="'white'">
+      <app-progress-panel [style.height.px]="8" [style.bottom.px]="0" />
+    </div>
+  </nz-affix>
+  <div class="mt-3 pr-4">
+    <router-outlet />
+  </div>
+</div>
+
+@if (doc4s.uploadStatus() === 'uploading' || doc4s.loadStatus() === 'loading' ||
+jobs.jobsActive().length) {
+  <div class="spinner">
+    <nz-spin nzSimple [nzSize]="'large'" />
+  </div>
+}

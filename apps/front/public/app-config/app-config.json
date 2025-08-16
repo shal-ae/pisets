@@ -1,0 +1,7 @@
+{
+  "apiAddress": "http://localhost:3040",
+  "ssrApiAddress": "http://localhost:3040",
+  "refreshTokenIntervalSec": 600,
+  "apiAddressErp": "",
+  "localErpFilesBackend": ""
+}

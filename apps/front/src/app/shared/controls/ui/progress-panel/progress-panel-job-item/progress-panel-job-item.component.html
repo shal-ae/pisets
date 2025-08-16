@@ -1,0 +1,25 @@
+@if ((job | jobPercent) > 0) {
+  <nz-progress
+    [nzPercent]="job | jobPercent"
+    [nzShowInfo]="false"
+    [title]="job | jobTitle"
+  />
+  <!--  <div-->
+    <!--    class="infinite-percent h-full"-->
+    <!--    [style.background-color]="'blue'"-->
+    <!--    [style.width.%]="job | jobPercent"-->
+    <!--    [title]="job | jobTitle"-->
+    <!--  ></div>-->
+    <!--         [style.border-radius]="'50%'"-->
+    <!--         [style.border]="'1px solid blue'"-->
+} @else {
+  <nz-progress
+    [nzStatus]="'active'"
+    [nzPercent]="100"
+    [nzShowInfo]="false"
+    [title]="job | jobTitle"
+  />
+  <!--  <div class="infinite h-full w-full"-->
+    <!--       [title]="job | jobTitle"-->
+    <!--  ></div>-->
+}

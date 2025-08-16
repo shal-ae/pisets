@@ -1,0 +1,14 @@
+<div class="flex flex-row gap-2 m-2">
+  @for (st of stamp.entities(); track st.id) {
+    <lib-picture-rollover
+      class="p2"
+      [title]="st.name"
+      [pictures]="st.images | imagesToRolloverPicture : STAMPS_FOLDER"
+      [pictureWidthPx]="80"
+      [pictureHeightPx]="80"
+      [pictogramHeightPx]="4"
+      [hidePictogramWhenMouseOut]="true"
+      (imageClick)="imageClick(st, $event)"
+    />
+  }
+</div>

@@ -1,0 +1,90 @@
+<div
+  cdkDrag
+  [cdkDragDisabled]="!showControlsOnHover && !showControlsAlways"
+  class="wr"
+  #wr
+  [class.show-controls]="
+    showControlsAlways || (showControlsOnHover && mouseOver)
+  "
+  [class.focused]="focused"
+  (cdkDragStarted)="hostDragStarted($event)"
+  (cdkDragMoved)="hostDragMoved($event)"
+  (cdkDragEnded)="hostDragEnded($event)"
+  (mouseenter)="mouseOver = true"
+  (mouseleave)="mouseOver = false"
+  (click)="mouseClick($event)"
+>
+  <div
+    cdkDrag
+    #handleLeftTop
+    (cdkDragStarted)="dragStarted('handleLeftTop', $event)"
+    (cdkDragMoved)="dragMoved('handleLeftTop', $event)"
+    (cdkDragEnded)="dragEnded('handleLeftTop', $event)"
+    class="handle lt"
+  ></div>
+  <div
+    cdkDrag
+    #handleRightTop
+    (cdkDragStarted)="dragStarted('handleRightTop', $event)"
+    (cdkDragMoved)="dragMoved('handleRightTop', $event)"
+    (cdkDragEnded)="dragEnded('handleRightTop', $event)"
+    class="handle rt"
+  ></div>
+  <div
+    cdkDrag
+    #handleLeftBottom
+    (cdkDragStarted)="dragStarted('handleLeftBottom', $event)"
+    (cdkDragMoved)="dragMoved('handleLeftBottom', $event)"
+    (cdkDragEnded)="dragEnded('handleLeftBottom', $event)"
+    class="handle lb"
+  ></div>
+  <div
+    cdkDrag
+    #handleRightBottom
+    (cdkDragStarted)="dragStarted('handleRightBottom', $event)"
+    (cdkDragMoved)="dragMoved('handleRightBottom', $event)"
+    (cdkDragEnded)="dragEnded('handleRightBottom', $event)"
+    class="handle rb"
+  ></div>
+
+  <div
+    cdkDrag
+    #handleLeft
+    (cdkDragStarted)="dragStarted('handleLeft', $event)"
+    (cdkDragMoved)="dragMoved('handleLeft', $event)"
+    (cdkDragEnded)="dragEnded('handleLeft', $event)"
+    class="handle l"
+  ></div>
+
+  <div
+    cdkDrag
+    #handleRight
+    (cdkDragStarted)="dragStarted('handleRight', $event)"
+    (cdkDragMoved)="dragMoved('handleRight', $event)"
+    (cdkDragEnded)="dragEnded('handleRight', $event)"
+    class="handle r"
+  ></div>
+
+  <div
+    cdkDrag
+    #handleTop
+    (cdkDragStarted)="dragStarted('handleTop', $event)"
+    (cdkDragMoved)="dragMoved('handleTop', $event)"
+    (cdkDragEnded)="dragEnded('handleTop', $event)"
+    class="handle t"
+  ></div>
+
+  <div
+    cdkDrag
+    #handleBottom
+    (cdkDragStarted)="dragStarted('handleBottom', $event)"
+    (cdkDragMoved)="dragMoved('handleBottom', $event)"
+    (cdkDragEnded)="dragEnded('handleBottom', $event)"
+    class="handle b"
+  ></div>
+
+  @if (showPositionCaption) {
+    <div class="size">{{ sizeText }}</div>
+  }
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,9 @@
+{
+  "name": "back-utils",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/back/core/utils/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project back-utils --web",
+  "targets": {}
+}

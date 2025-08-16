@@ -1,0 +1,63 @@
+@if (app.isBrowser) {
+  <div class="flex gap-4 m-2 flex-wrap">
+    <button nz-button (click)="addDialog.open()" nzType="primary">
+      Добавить
+    </button>
+
+    <lib-pager-panel [store]="doc4sList" [loadUrl]="cfg.config.apiAddress + BackendRoutes.doc4sList" />
+  </div>
+  <hr />
+  <div class="mt-4 flex w-full gap-4 m-2 flex-wrap">
+    <app-doc4s-list-filters />
+  </div>
+  <hr class="mt-4" />
+
+  <nz-table
+    #docsTable
+    class="w-full p-2"
+    [nzData]="doc4sList.entities()"
+    nzBordered
+    [nzFrontPagination]="false"
+    nzSize="small"
+  >
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Автор</th>
+      <th>Создан</th>
+      <th>Изменён</th>
+      <th>Тема</th>
+      <th>Контрагент</th>
+      <th>Документ</th>
+      <th>PDF</th>
+      <th>Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of docsTable.data; track data.id) {
+
+        <tr class="cursor-pointer" [routerLink]="FrontendRoutes.doc4sign(data.id)">
+          <td>{{ data.num || data.id }}</td>
+          <td>{{ data.authorId | userIdToStr }}</td>
+          <td>{{ data.createdAt | dateToStr }}</td>
+          <td>{{ data.updatedAt | dateToStr }}</td>
+          <td>{{ data.subject }}</td>
+          <td>{{ data.counterparty }}</td>
+          <td>{{ data | doc2str }}</td>
+          <td (click)="$event.stopPropagation()">
+            <app-result-files [data]="data" />
+          </td>
+          <td>
+            <app-status-icon
+              [status]="data.status"
+              [showText]="true"
+              [iconSizePx]="22"
+            />
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  <app-edit-doc4s-props-dialog #addDialog (onOK)="onDialogOk($event)" />
+}
