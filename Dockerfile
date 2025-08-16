@@ -11,3 +11,5 @@ RUN npm ci
 
 COPY . .
 
+RUN npx nx run front:build:production
+RUN npx nx run back:build:production
