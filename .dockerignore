@@ -1,6 +1,6 @@
 /.angular
 /.idea
-/.nx
+#/.nx
 /data
 /deploy
 /dist

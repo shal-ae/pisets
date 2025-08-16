@@ -12,6 +12,8 @@ RUN npm ci
 
 RUN apt-get -y install mc
 
+RUN npm install -g @angular/cli
+RUN npm install -g @nestjs/cli
 RUN npm add --global nx
 # RUN add-apt-repository ppa:nrwl/nx && apt-get update && apt-get install nx
 
