@@ -12,5 +12,6 @@ RUN npm ci
 
 RUN apt-get -y install mc
 
-RUN add-apt-repository ppa:nrwl/nx && apt-get update && apt-get install nx
+RUN npm add --global nx
+# RUN add-apt-repository ppa:nrwl/nx && apt-get update && apt-get install nx
 
