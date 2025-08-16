@@ -2,7 +2,8 @@
 
 .env
 
-apps/back/.env
+/apps/back/.env
+/apps/front/public/app-config/app-config.json
 
 data
 dist
