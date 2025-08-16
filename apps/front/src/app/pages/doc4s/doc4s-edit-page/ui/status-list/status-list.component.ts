@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
-import { StatusMeta } from 'libs/core/doc4s'
-import { DateToStrPipe } from 'libs/front/core/ui/src'
+import { StatusMeta } from '@rka/doc4s';
+import { DateToStrPipe } from '@rka/ui';
 import { BaseComponent } from '../../../../../shared/controls/base.component'
 import { Doc4sStore } from '../../../../../shared/store/doc4s/doc4s.store'
 

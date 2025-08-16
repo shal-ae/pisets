@@ -12,6 +12,6 @@ export class UserIdToStrPipe implements PipeTransform {
     if ( value === null ) {
       return '?'
     }
-    return this.auth.users.entityMap()[ value ]?.name ?? '?'
+    return (this.auth.users.entityMap()[ value ])?.name ?? '?'
   }
 }

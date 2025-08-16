@@ -3,35 +3,9 @@ import { computed, inject, Signal } from '@angular/core'
 import { Router } from '@angular/router'
 import { getState, patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
 import { addEntities, addEntity, removeAllEntities, setAllEntities, setEntity } from '@ngrx/signals/entities'
-import {
-  AddJobResponseItem,
-  ApiResult,
-  deepClone,
-  FileUploadResult,
-  makeJobId,
-  MakePdfFromPicturesRequest,
-  MakePdfFromPicturesResponse,
-  MyUtils,
-  PdfProperties,
-  StrUtils,
-} from 'libs/core/core-utils'
-import { DocumentStatus, fillStatusBooleanData } from 'libs/core/doc4s'
-import {
-  JobStore,
-  PagerListQueryParams,
-  PagerListServiceResponse,
-  setError,
-  setLoaded,
-  setLoading,
-  setModified,
-  setNotFoundFalse,
-  setNotFoundTrue,
-  setNotModified,
-  withLoadStatus,
-  withModifiedStatus,
-  withNotFoundStatus,
-  withUploadFile,
-} from 'libs/front/core/store/src'
+import { AddJobResponseItem, ApiResult, deepClone, FileUploadResult, makeJobId, MakePdfFromPicturesRequest, MakePdfFromPicturesResponse, MyUtils, PdfProperties, StrUtils } from '@rka/core-utils';
+import { DocumentStatus, fillStatusBooleanData } from '@rka/doc4s';
+import { JobStore, PagerListQueryParams, PagerListServiceResponse, setError, setLoaded, setLoading, setModified, setNotFoundFalse, setNotFoundTrue, setNotModified, withLoadStatus, withModifiedStatus, withNotFoundStatus, withUploadFile } from '@rka/store';
 import { map, Observable, of, switchMap, tap } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import {

@@ -4,7 +4,7 @@
       <div>{{ s.setAt | dateToStr }}</div>
       <div>{{ StatusMeta[ s.status ].name }}</div>
       <div>
-        {{ s.setByUserId ? auth.users.entityMap()[ s.setByUserId ].name : '?' }}
+        {{ s.setByUserId ? (auth.users.entityMap()[ s.setByUserId! ])?.name : '?' }}
       </div>
     </div>
   }

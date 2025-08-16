@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { patchState, signalState } from '@ngrx/signals'
-import { ApiResult } from 'libs/core/core-utils'
-import { LocalstorageService } from 'libs/front/core/ui/src'
+import { ApiResult } from '@rka/core-utils';
+import { LocalstorageService } from '@rka/ui';
 import { filter, map, Observable, of, switchMap } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { Doc4sListStore } from '../store/doc4s.list.store'
