@@ -11,5 +11,8 @@ RUN npm ci
 
 COPY . .
 
+ENV NX_DAEMON=false
+
 RUN npx nx run front:build:production
-RUN npx nx run back:build:production --no-daemon
+RUN npx nx run back:build:production
+
