@@ -1,8 +1,23 @@
 import { HttpClient } from '@angular/common/http'
 import { computed, inject, Signal } from '@angular/core'
 import { Router } from '@angular/router'
-import { getState, patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
-import { addEntities, addEntity, removeAllEntities, setAllEntities, setEntity } from '@ngrx/signals/entities'
+import {
+  getState,
+  patchState,
+  signalStore,
+  type,
+  withComputed,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
+import {
+  addEntities,
+  addEntity,
+  removeAllEntities,
+  setAllEntities,
+  setEntity,
+  withEntities
+} from '@ngrx/signals/entities';
 import { AddJobResponseItem, ApiResult, deepClone, FileUploadResult, makeJobId, MakePdfFromPicturesRequest, MakePdfFromPicturesResponse, MyUtils, PdfProperties, StrUtils } from '@rka/core-utils';
 import { DocumentStatus, fillStatusBooleanData } from '@rka/doc4s';
 import { JobStore, PagerListQueryParams, PagerListServiceResponse, setError, setLoaded, setLoading, setModified, setNotFoundFalse, setNotFoundTrue, setNotModified, withLoadStatus, withModifiedStatus, withNotFoundStatus, withUploadFile } from '@rka/store';
@@ -29,7 +44,7 @@ import {
 import {
   DOC4S_THUMBNAILS_GROUP_THUMBNAIL,
   DOC4S_THUMBNAILS_GROUP_VIEW,
-  doc4sFolder,
+  doc4sFolder, doc4sInitialState, Doc4sState,
   DocumentForSignature,
   DocumentForSignatureFields,
   PictureFilesRequestCollection,
@@ -41,17 +56,17 @@ import {
   testStatuses,
   UploadedFile,
   UploadedFilesRequestCollection,
-  UploadedFilesResponseCollection,
-} from '../../types/doc4s.types'
+  UploadedFilesResponseCollection
+} from '../../types/doc4s.types';
 import { calculateSizesInMmOfImageDesc, ImageDesc, imageDescFromUploadedInfo } from '../../types/image-desc.types'
 import { withDoc4sAdd } from './doc4s-add.feature'
 import { withDoc4sTables } from './doc4s-tables.feature'
 
 export const Doc4sStore = signalStore(
   { providedIn: 'root', protectedState: false },
-  withState<DocumentForSignatureFields>( newDocumentForSignatureFields() ),
-  withModifiedStatus(),
+  withState<Doc4sState>( doc4sInitialState() ),
   withDoc4sTables(), // в signalStore(...) не входит больше 10 параметров
+  withModifiedStatus(),
   withDoc4sAdd(), // в signalStore(...) не входит больше 10 параметров
 
   withNotFoundStatus(),

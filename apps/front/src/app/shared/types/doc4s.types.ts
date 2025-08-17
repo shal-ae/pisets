@@ -100,3 +100,35 @@ export const UploadedFilesResponseCollection = 'uploadedFilesResponse'
 export const PictureFilesResponseCollection = 'pictureFilesResponse'
 export const ResultFilesResponseCollection = 'resultFilesResponse'
 export const StatusesCollection = 'statuses'
+
+export type Doc4sState = DocumentForSignature
+
+export function doc4sInitialState (): Doc4sState {
+  return {
+    id: 0,
+    num: 0,
+    authorId: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    assignedByUserId: null,
+
+    subject: '',
+    description: '',
+
+    type: '',
+    incomingDocumentNumber: '',
+    incomingDocumentDate: null,
+
+    counterparty: '',
+
+    status: 'draft',
+    approveComments: '',
+
+    [ UploadedFilesRequestCollection ]: [],
+    [ PictureFilesRequestCollection ]: [],
+    [ UploadedFilesResponseCollection ]: [],
+    [ PictureFilesResponseCollection ]: [],
+    [ ResultFilesResponseCollection ]: [],
+    [ StatusesCollection ]: [],
+  }
+}

@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient( withInterceptorsFromDi(), withFetch() ),
     INTERCEPTOR_PROVIDER,
-    provideClientHydration(),
+    // provideClientHydration(),
     ConfigService,
     {
       provide: APP_INITIALIZER,
