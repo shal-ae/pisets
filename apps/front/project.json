@@ -27,10 +27,13 @@
           }
         ],
         "styles": [
-          "apps/front/src/theme.less",
+          "node_modules/ng-zorro-antd/ng-zorro-antd.variable.min.css",
           "apps/front/src/styles.scss",
           "apps/front/src/variables.scss"
-        ]
+        ],
+        "sourceMap": {
+          "styles": false
+        }
       },
       "configurations": {
         "production": {
