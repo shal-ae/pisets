@@ -1,6 +1,6 @@
 import { signalStore, withMethods } from '@ngrx/signals'
 import { withEntities } from '@ngrx/signals/entities'
-import { PagerConfig, withLoadStatus, withPagerList } from 'libs/front/core/store/src'
+import { PagerConfig, withLoadStatus, withPagerList } from '@rka/store';
 import { BackendRoutes } from '../types/backend.routes'
 import { User } from '../types/user.types'
 
@@ -21,8 +21,8 @@ const CONFIG: PagerConfig = {
   ],
   defaultOrderItems: [ 'name' ],
 
-  itemsOnPageItems: [ 10, 15, 20, 50, 0 ],
-  defaultItemsOnPage: 15,
+  // itemsOnPageItems: [ 10, 15, 20, 50, 0 ],
+  // defaultItemsOnPage: 15,
 }
 
 export const UserStore = signalStore(

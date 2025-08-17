@@ -13,6 +13,7 @@ COPY . .
 
 ENV NX_DAEMON=false
 
-RUN npx nx run front:build:development
 RUN npx nx run back:build:production
+
+RUN npx nx run front:build:development
 
