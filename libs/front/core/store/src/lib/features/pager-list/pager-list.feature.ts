@@ -79,6 +79,8 @@ export function withPagerList<T extends Entity>( config: PagerConfig ) {
                   { total: res.total },
                   { pageCount },
                 )
+                console.log(res.data);
+                console.log(store.entityMap());
               }
             } ),
           )
