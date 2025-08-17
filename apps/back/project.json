@@ -12,9 +12,9 @@
         "cwd": "apps/back",
         "assets": [
           {
-            "input": "apps/back/src/app/assets/mail/templates", // путь к шаблонам
+            "input": "apps/back/src/app/assets/mail/templates",
             "glob": "**/*",
-            "output": "assets/mail/templates" // куда положить в dist
+            "output": "assets/mail/templates"
           }
         ]
       },
