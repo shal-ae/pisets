@@ -9,7 +9,14 @@
       "options": {
         "command": "webpack-cli build",
         "args": ["--node-env=production"],
-        "cwd": "apps/back"
+        "cwd": "apps/back",
+        "assets": [
+          {
+            "input": "apps/back/src/app/assets/mail/templates", // путь к шаблонам
+            "glob": "**/*",
+            "output": "assets/mail/templates" // куда положить в dist
+          }
+        ]
       },
       "configurations": {
         "development": {
