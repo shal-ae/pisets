@@ -1,13 +1,13 @@
-import { FileUploadResult, ThumbnailItem } from 'libs/core/core-utils'
-import { DocumentStatus } from 'libs/core/doc4s'
-import { DocumentPage } from '../../pages/doc4s/doc4s-edit-page/ui/pages-editor/pages-editor.types'
+import { FileUploadResult, ThumbnailItem } from 'libs/core/core-utils';
+import { DocumentStatus } from 'libs/core/doc4s';
+import { DocumentPage } from '../../pages/doc4s/doc4s-edit-page/ui/pages-editor/pages-editor.types';
 
-export const doc4sFolder = ( docId: number ) => `private/doc4s/${docId}/`
+export const doc4sFolder = (docId: number) => `private/doc4s/${docId}/`;
 
-export const DOC4S_THUMBNAILS_GROUP_THUMBNAIL = '200'
-export const DOC4S_THUMBNAILS_GROUP_VIEW = 'view'
+export const DOC4S_THUMBNAILS_GROUP_THUMBNAIL = '200';
+export const DOC4S_THUMBNAILS_GROUP_VIEW = 'view';
 
-export const DOC4S_THUMBNAILS_VIEW_SIZE = 1500
+export const DOC4S_THUMBNAILS_VIEW_SIZE = 1500;
 
 export const DOC4S_THUMBNAILS: ThumbnailItem[] = [
   { group: DOC4S_THUMBNAILS_GROUP_THUMBNAIL, width: 200, height: 200 },
@@ -16,7 +16,7 @@ export const DOC4S_THUMBNAILS: ThumbnailItem[] = [
     width: DOC4S_THUMBNAILS_VIEW_SIZE,
     height: DOC4S_THUMBNAILS_VIEW_SIZE,
   },
-]
+];
 
 export type DocumentForSignatureFields = {
   id: number;
@@ -41,16 +41,16 @@ export type DocumentForSignatureFields = {
 };
 
 export type DocumentForSignature = DocumentForSignatureFields & {
-  [ UploadedFilesRequestCollection ]: UploadedFile[];
-  [ PictureFilesRequestCollection ]: DocumentPage[];
-  [ UploadedFilesResponseCollection ]: UploadedFile[];
-  [ PictureFilesResponseCollection ]: DocumentPage[];
-  [ ResultFilesResponseCollection ]: ResultFile[];
-  [ StatusesCollection ]: StatusTrackItem[];
+  [UploadedFilesRequestCollection]: UploadedFile[];
+  [PictureFilesRequestCollection]: DocumentPage[];
+  [UploadedFilesResponseCollection]: UploadedFile[];
+  [PictureFilesResponseCollection]: DocumentPage[];
+  [ResultFilesResponseCollection]: ResultFile[];
+  [StatusesCollection]: StatusTrackItem[];
 };
 
 export type DocumentForSignatureListItem = DocumentForSignatureFields & {
-  [ ResultFilesResponseCollection ]: ResultFile[];
+  [ResultFilesResponseCollection]: ResultFile[];
 };
 
 export interface UploadedFile extends FileUploadResult {
@@ -75,8 +75,8 @@ export interface StatusTrackItem {
 }
 
 export function testStatuses(): StatusTrackItem[] {
-  const yesterday = new Date()
-  yesterday.setDate( yesterday.getDate() - 1 )
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
 
   return [
     {
@@ -91,44 +91,12 @@ export function testStatuses(): StatusTrackItem[] {
       setAt: new Date(),
       setByUserId: null,
     },
-  ]
+  ];
 }
 
-export const UploadedFilesRequestCollection = 'uploadedFilesRequest'
-export const PictureFilesRequestCollection = 'pictureFilesRequest'
-export const UploadedFilesResponseCollection = 'uploadedFilesResponse'
-export const PictureFilesResponseCollection = 'pictureFilesResponse'
-export const ResultFilesResponseCollection = 'resultFilesResponse'
-export const StatusesCollection = 'statuses'
-
-export type Doc4sState = DocumentForSignature
-
-export function doc4sInitialState (): Doc4sState {
-  return {
-    id: 0,
-    num: 0,
-    authorId: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    assignedByUserId: null,
-
-    subject: '',
-    description: '',
-
-    type: '',
-    incomingDocumentNumber: '',
-    incomingDocumentDate: null,
-
-    counterparty: '',
-
-    status: 'draft',
-    approveComments: '',
-
-    [ UploadedFilesRequestCollection ]: [],
-    [ PictureFilesRequestCollection ]: [],
-    [ UploadedFilesResponseCollection ]: [],
-    [ PictureFilesResponseCollection ]: [],
-    [ ResultFilesResponseCollection ]: [],
-    [ StatusesCollection ]: [],
-  }
-}
+export const UploadedFilesRequestCollection = 'uploadedFilesRequest';
+export const PictureFilesRequestCollection = 'pictureFilesRequest';
+export const UploadedFilesResponseCollection = 'uploadedFilesResponse';
+export const PictureFilesResponseCollection = 'pictureFilesResponse';
+export const ResultFilesResponseCollection = 'resultFilesResponse';
+export const StatusesCollection = 'statuses';
