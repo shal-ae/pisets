@@ -259,9 +259,12 @@ export const Doc4sStore = signalStore(
       },
 
       readToState(data: DocumentForSignature) {
+        // отделяем поля коллекций
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { uploadedFilesRequest, pictureFilesRequest, uploadedFilesResponse, pictureFilesResponse, resultFilesResponse, statuses, ...dataNoCollections } = data
         patchState(
           store,
-          data,
+          dataNoCollections,
           setAllEntities(data[UploadedFilesRequestCollection] ?? [], {
             collection: UploadedFilesRequestCollection,
           }),

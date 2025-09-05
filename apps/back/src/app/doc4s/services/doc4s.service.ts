@@ -33,9 +33,7 @@ export class Doc4sService {
     }
   }
 
-  async list(
-    request?: ListQueryParams,
-  ): Promise<ListDTO<DocumentForSignatureListItem>> {
+  async list( request?: ListQueryParams ): Promise<ListDTO<DocumentForSignatureListItem>> {
     const listServiceQueryParams: ListServiceQueryParams = {
       ...request,
       tableName: 'public.doc4s',
@@ -58,6 +56,7 @@ export class Doc4sService {
         incomingDocumentDate: e.data.incomingDocumentDate,
         counterparty: e.data.counterparty,
         status: e.data.status,
+        approveComments: e.data.approveComments,
         [ ResultFilesResponseCollection ]: e.data[ ResultFilesResponseCollection ],
       }) ),
     }

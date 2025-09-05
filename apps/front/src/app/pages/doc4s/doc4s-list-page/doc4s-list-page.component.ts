@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core'
 import { RouterLink } from '@angular/router'
-import { StatusMeta } from 'libs/core/doc4s'
-import { DateToStrPipe, PagerPanelComponent } from 'libs/front/core/ui/src'
+import { StatusMeta } from '@rka/doc4s';
+import { DateToStrPipe, PagerPanelComponent } from '@rka/ui';
 import { NzButtonModule } from 'ng-zorro-antd/button'
 import {
   NzTableCellDirective,
@@ -26,8 +26,9 @@ import { Doc2strPipe } from './pipes/doc2str.pipe'
 import { UserIdToStrPipe } from './pipes/user-id-to-str.pipe'
 import { Doc4sListFiltersComponent } from './ui/doc4s-list-filters/doc4s-list-filters.component'
 import { ResultFilesComponent } from './ui/result-files/result-files.component'
+import { NzPopoverDirective } from 'ng-zorro-antd/popover';
 
-@Component( {
+@Component({
   selector: 'app-sign-page',
   standalone: true,
   templateUrl: './doc4s-list-page.component.html',
@@ -50,32 +51,39 @@ import { ResultFilesComponent } from './ui/result-files/result-files.component'
     StatusIconComponent,
     UserIdToStrPipe,
     RouterLink,
+    NzPopoverDirective,
   ],
-} )
+})
 export class Doc4sListPageComponent
   extends BasePageComponent
-  implements OnInit {
-  FrontendRoutes = FrontendRoutes
+  implements OnInit
+{
+  FrontendRoutes = FrontendRoutes;
 
-  doc4s = inject( Doc4sStore )
-  doc4sList = inject( Doc4sListStore )
+  doc4s = inject(Doc4sStore);
+  doc4sList = inject(Doc4sListStore);
 
-  onDialogOk( data: DocumentForSignatureFields ) {
-    this.doc4s.fillNew()
-    this.doc4s.readToStateFields( data )
+  onDialogOk(data: DocumentForSignatureFields) {
+    this.doc4s.fillNew();
+    this.doc4s.readToStateFields(data);
     this.doc4s
       .save()
       .pipe(
-        switchMap( ( id: number ) => this.doc4sList.load( this.cfg.config.apiAddress + BackendRoutes.doc4sList, true ) ),
-        map( () =>
-          this.router
-            .navigateByUrl( FrontendRoutes.doc4sign( this.doc4s.id() ) )
-            .then(),
+        switchMap((id: number) =>
+          this.doc4sList.load(
+            this.cfg.config.apiAddress + BackendRoutes.doc4sList,
+            true
+          )
         ),
+        map(() =>
+          this.router
+            .navigateByUrl(FrontendRoutes.doc4sign(this.doc4s.id()))
+            .then()
+        )
       )
-      .subscribe()
+      .subscribe();
   }
 
-  protected readonly StatusMeta = StatusMeta
-  protected readonly BackendRoutes = BackendRoutes
+  protected readonly StatusMeta = StatusMeta;
+  protected readonly BackendRoutes = BackendRoutes;
 }

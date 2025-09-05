@@ -25,12 +25,12 @@
       <th>№</th>
       <th>Автор</th>
       <th>Создан</th>
-      <th>Изменён</th>
       <th>Тема</th>
       <th>Контрагент</th>
       <th>Документ</th>
       <th>PDF</th>
       <th>Статус</th>
+      <th>Комм.</th>
     </tr>
     </thead>
     <tbody>
@@ -40,7 +40,6 @@
           <td>{{ data.num || data.id }}</td>
           <td>{{ data.authorId | userIdToStr }}</td>
           <td>{{ data.createdAt | dateToStr }}</td>
-          <td>{{ data.updatedAt | dateToStr }}</td>
           <td>{{ data.subject }}</td>
           <td>{{ data.counterparty }}</td>
           <td>{{ data | doc2str }}</td>
@@ -53,6 +52,11 @@
               [showText]="true"
               [iconSizePx]="22"
             />
+          </td>
+          <td>
+            @if (data.approveComments) {
+              <button nz-button nz-popover nzType="primary" nzPopoverTitle="Комментарий" [nzPopoverContent]="data.approveComments">!</button>
+            }
           </td>
         </tr>
       }

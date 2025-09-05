@@ -1,5 +1,5 @@
-import { FileUploadResult } from 'libs/core/core-utils'
-import { DocumentStatus } from 'libs/core/doc4s'
+import { FileUploadResult } from '@rka/core-utils';
+import { DocumentStatus } from '@rka/doc4s';
 import { ImageDesc } from '../../shared/types/image-desc'
 import { User } from '../../users/entities/user.entity'
 import { Rect } from './document-page.types'
@@ -20,6 +20,7 @@ export type DocumentForSignatureFields = {
   incomingDocumentDate: Date;
   counterparty: string;
   status: string;
+  approveComments?: string
 };
 
 export function isAllowedToOpenDocument(
