@@ -6,6 +6,7 @@ export interface MakePdfRequestBody {
   folder: string;
   pages: MakePdfPage[];
   outPdfProperties?: PdfProperties;
+  preferableNameOfOutputFile?: string
 }
 
 export interface MakeAndSavePdfRequestBody extends MakePdfRequestBody {

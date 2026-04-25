@@ -61,6 +61,7 @@ export class ComposePageService {
     const request: MakePdfRequestBody = {
       folder: data.folder,
       pages,
+      preferableNameOfOutputFile: data.preferableNameOfOutputFile
     }
 
     progress = PROGRESS_START_MAKE_PDF

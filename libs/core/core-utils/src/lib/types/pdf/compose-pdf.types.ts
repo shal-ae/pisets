@@ -12,13 +12,14 @@ export interface ComposeDocumentPageResponse {
 }
 
 export interface MakePdfFromPicturesRequest {
-  pages: ComposeDocumentPageRequest[];
-  folder?: string;
-  outPdfProperties?: PdfProperties;
+  pages: ComposeDocumentPageRequest[]
+  folder?: string
+  outPdfProperties?: PdfProperties
+  preferableNameOfOutputFile?: string
 }
 
 export interface MakePdfFromPicturesResponse {
-  filename: string;
+  filename: string
 }
 
 export interface ComposeItem {

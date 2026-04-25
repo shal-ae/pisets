@@ -33,20 +33,26 @@ export class MakePdfService {
 
     const Recipe = muhammara.Recipe
 
-    const filename = makeRandomId( 10 ) + '.pdf'
+    const outputFolder = request.folder ? path.join(this.config.filesDir, request.folder ) :
+      path.join(this.config.tempDir, PDF_FILES_TEMP_SUB_DIR)
+
+    let filename =''
     let outputFile = ''
-    if ( request.folder ) {
-      outputFile = path.join(
-        this.config.filesDir,
-        request.folder,
-        filename,
-      )
+
+    if (request.preferableNameOfOutputFile) {
+      for (let i=0; i<100; i++) {
+        const postfix = i ? '-' + i.toString() : ''
+        filename =  request.preferableNameOfOutputFile + postfix + '.pdf'
+        outputFile = path.join(outputFolder, filename)
+        if (!FileUtils.fileExist(outputFile)) {
+          break
+        }
+        filename = makeRandomId( 10 ) + '.pdf'
+        outputFile = path.join(outputFolder, filename)
+      }
     } else {
-      outputFile = path.join(
-        this.config.tempDir,
-        PDF_FILES_TEMP_SUB_DIR,
-        filename,
-      )
+      filename = makeRandomId( 10 ) + '.pdf'
+      outputFile = path.join(outputFolder, filename)
     }
 
     FileUtils.createPathForFileIfNotExist( outputFile )

@@ -669,12 +669,13 @@ export const Doc4sStore = signalStore(
           outPdfProperties,
           pages: pages.map((p) => ({
             folder,
-            src: p.pageImage!.src,
+            src: p.pageImage?.src ?? '',
             stamps: p.stamps.map((s) => ({
               src: s.imageDesc.src,
               position: s.position,
             })),
           })),
+          preferableNameOfOutputFile: 'doc' + store.num().toString()
         };
         return http
           .post<ApiResult<AddJobResponseItem>>(
